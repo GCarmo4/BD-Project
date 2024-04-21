@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lista de categorias - Flask</title>
+</head>
+<body style="padding:20px">
+{% if cursor %}
+    <h3>Lista de categorias</h3>
+    <table border="2px">
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in cursor %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td><a href="expand_cat?categoria={{record[0]}}">Expandir</a></td>
+                    <td><form action="delete_cat" method="post"><input type="submit" onclick="return confirm('Tem a certeza?')" value="Remover"/></td>
+                </tr>
+                <p><input type="hidden" name="cat_name" value="{{ record[0] }}"/></p>
+            </form>
+            {% endfor %}
+                <tr>
+                    <td> </td>
+                    <td> </td>
+                    <td><a href="new_cat_root">Inserir nova</a></td>
+                </tr>
+        </tbody>
+    </table>
+    <p><a href="{{url_for('index')}}">Voltar ao início</a></p>
+{% else %}
+    <p> Erro: não foi possível obter dados da base de dados!</p>
+{% endif %}
+</body>
+</html>
